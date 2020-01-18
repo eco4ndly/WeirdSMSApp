@@ -45,46 +45,8 @@ class MainActivityViewModel @Inject constructor(
   fun messageListLiveData(): LiveData<MutableList<MessageListItem>> = _messageModelLiveData
 
   /**
-   * Gets message list
+   * Connects the database and the ui list with Flow-Livedata combination so that the list can react on data change
    */
-  /*fun getSmsMessages() {
-    _showLoaderLiveData.call()
-    viewModelScope.launch {
-      smsRepository.getSmsMessages(offset, DEFAULT_LIMIT)
-        .let {
-          val currentTimeInMill: Long = System.currentTimeMillis()
-          val messageList: MutableList<MessageListItem> = mutableListOf()
-          it.forEach { smsModel: MessageListItem.SmsMessageModel ->
-            val currentDiff = getDifferenceInHours(currentTimeInMill, smsModel.date)
-            if (currentDiff > 24) {
-              return@forEach
-            }
-            if (currentDiff != previousDiff) {
-              when (currentDiff) {
-                in 0..3 -> messageList.add(TimeTypeItem(application.resources.getQuantityString(R.plurals.hours_ago, currentDiff, currentDiff)))
-                in 4..6 -> messageList.add(TimeTypeItem(application.resources.getQuantityString(R.plurals.hours_ago, 6, 6)))
-                in 7..12 -> messageList.add(TimeTypeItem(application.resources.getQuantityString(R.plurals.hours_ago, 12, 12)))
-                in 13..24 -> messageList.add(TimeTypeItem(application.getString(R.string.one_day)))
-                else -> messageList.add(TimeTypeItem("More than 24 hrs"))
-              }
-              previousDiff = currentDiff
-            }
-            messageList.add(smsModel)
-          }
-          _hideLoaderLiveData.call()
-          if (messageList.isEmpty()) {
-            hasMessage = false
-            _showToastLiveData.postValue(application.getString(R.string.no_more_message))
-          } else {
-            hasMessage = true
-            offset += DEFAULT_LIMIT
-            _messageModelLiveData.postValue(messageList)
-          }
-        }
-    }
-  }*/
-
-
   fun getMessagesV2() {
     viewModelScope.launch {
       smsRepository.getMessagesV2().collect {
