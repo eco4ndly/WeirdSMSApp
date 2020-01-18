@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Weird SMS</string>
+  <string name="no_more_message">End of messages</string>
+  <string name="one_day">1 day ago</string>
+
+  <plurals name="hours_ago">
+    <item quantity="zero">%d hour ago</item>
+    <item quantity="one">%d hour ago</item>
+    <item quantity="other">%d hours ago</item>
+  </plurals>
+</resources>
